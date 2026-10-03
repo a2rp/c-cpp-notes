@@ -54,7 +54,7 @@ Save this as main.cpp. C++ uses its own standard library and type rules.
 int main()
 {
     constexpr std::string_view message{"Hello from C++"};
-    std::cout << message << '\\n';
+    std::cout << message << '\n';
 }
 ```
 
