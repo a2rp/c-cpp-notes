@@ -53,20 +53,30 @@ An extern declaration refers to an entity defined elsewhere. A program should ha
 A small module can expose a public header and keep a helper private to its source file:
 
 ```c
+#include <limits.h>
+#include <stddef.h>
 #include "reading_math.h"
 
-static int clamp_nonnegative(int value)
+static int is_nonnegative(int value)
 {
-    return value < 0 ? 0 : value;
+    return value >= 0;
 }
 
-int add_nonnegative(int left, int right)
+int add_nonnegative(int left, int right, int *result)
 {
-    return clamp_nonnegative(left) + clamp_nonnegative(right);
+    if (result == NULL || !is_nonnegative(left) || !is_nonnegative(right)) {
+        return 0;
+    }
+    if (left > INT_MAX - right) {
+        return 0;
+    }
+
+    *result = left + right;
+    return 1;
 }
 ```
 
-The header for this file should declare add_nonnegative. The helper has internal linkage because it is file-scope static. A caller should not depend on it.
+The header for this file should declare add_nonnegative. The helper has internal linkage because it is file-scope static. The function returns 1 on success and writes the sum to result. It returns 0 for a null output pointer, negative input, or overflow, and leaves the output unchanged on failure. A caller should not depend on the private helper.
 
 Compile and link the implementation together with the caller:
 
