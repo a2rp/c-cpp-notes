@@ -633,12 +633,12 @@ int main()
 #include <stdexcept>
 #include <string>
 
-int positive_length(const std::string& text)
+std::string::size_type positive_length(const std::string& text)
 {
     if (text.empty()) {
         throw std::invalid_argument("text must not be empty");
     }
-    return static_cast<int>(text.size());
+    return text.size();
 }
 
 int main()
