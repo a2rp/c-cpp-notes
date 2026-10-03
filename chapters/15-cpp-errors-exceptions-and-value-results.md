@@ -18,12 +18,12 @@ Use standard exception types where they match the condition. For example, invali
 #include <stdexcept>
 #include <string>
 
-int positive_length(const std::string& text)
+std::string::size_type positive_length(const std::string& text)
 {
     if (text.empty()) {
         throw std::invalid_argument("text must not be empty");
     }
-    return static_cast<int>(text.size());
+    return text.size();
 }
 
 int main()
@@ -37,7 +37,7 @@ int main()
 }
 ```
 
-For a general string, converting size_t to int may narrow. The sample uses a small constant. Production code should return size_t or check that the value fits before converting.
+Returning std::string::size_type preserves the range of the string length without a narrowing conversion.
 
 ## Optional values
 
