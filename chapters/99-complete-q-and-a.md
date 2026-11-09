@@ -255,9 +255,9 @@ Prefer composing members that already manage resources so the class does not nee
 
 It casts an expression to enable move-aware overload selection. The selected constructor or assignment performs the transfer.
 
-**57. What can code assume about a moved-from object?**
+**57. What can code assume about a moved-from standard-library object?**
 
-It remains valid, but its value is generally unspecified unless its type documents more. Reassign it before relying on its contents.
+It remains valid, but its value is generally unspecified unless its type documents more. A user-defined type's move operation defines its source object's postcondition. Reassign the source before relying on a known value.
 
 **58. Why can a move constructor be more efficient than a copy?**
 
@@ -341,7 +341,7 @@ It reports parse status without throwing and can parse a bounded character range
 
 **76. What is a data race?**
 
-It is conflicting unsynchronized access to the same memory, with at least one write. In C++, a data race is undefined behavior.
+It is potentially concurrent conflicting access to the same memory location, with at least one non-atomic access and no happens-before ordering between them. In C++, a data race is undefined behavior.
 
 **77. Why use an RAII lock guard?**
 

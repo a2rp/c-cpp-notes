@@ -20,7 +20,7 @@ add_executable(c_example main.c)
 set_target_properties(c_example PROPERTIES C_STANDARD 17 C_STANDARD_REQUIRED YES C_EXTENSIONS NO)
 
 add_executable(cpp_example main.cpp)
-target_compile_features(cpp_example PRIVATE cxx_std_20)
+set_target_properties(cpp_example PROPERTIES CXX_STANDARD 20 CXX_STANDARD_REQUIRED YES CXX_EXTENSIONS NO)
 
 if(MSVC)
     target_compile_options(c_example PRIVATE /W4)

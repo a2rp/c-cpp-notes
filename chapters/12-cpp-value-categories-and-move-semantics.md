@@ -10,7 +10,7 @@ Move semantics let a type transfer resources from an object that is no longer ne
 
 A simplified starting point is:
 
-- An lvalue identifies an object with a persistent identity, such as a named variable.
+- An lvalue identifies an object or function, such as a named variable.
 - A prvalue computes a value that can initialize a destination, such as a temporary result.
 - An xvalue identifies an object whose resources may be reused, such as an object cast with std::move.
 
@@ -20,7 +20,7 @@ These categories affect which overloads can be selected. The full C++ value-cate
 
 std::move does not move anything by itself. It casts an expression so that a move-aware overload can be selected. The selected constructor or assignment operator performs the transfer.
 
-After an object is moved from, it remains valid but its value is generally unspecified unless the type documents more. Assign a new value before relying on its contents. Do not assume a moved-from string is empty just because a particular implementation often makes it so.
+After moving from a standard-library object, it remains valid but its value is generally unspecified unless the type documents more. A user-defined type's move operations define the source object's postcondition. Treat the source as not useful until you assign a known value, and do not assume a moved-from string is empty just because a particular implementation often makes it so.
 
 ```cpp
 #include <string>

@@ -4,7 +4,7 @@
 | --- | --- | --- |
 # 16. Concurrency, threads, and atomics
 
-Concurrency lets work progress on multiple threads, but shared mutable data needs synchronization. A data race occurs when conflicting accesses happen without the required synchronization, and at least one access modifies the object. A data race is undefined behavior in C++.
+Concurrency lets work progress on multiple threads, but shared mutable data needs synchronization. A C++ data race occurs when two potentially concurrent actions conflict on the same memory location, at least one is non-atomic, and neither happens before the other. A data race is undefined behavior.
 
 ## Thread lifetime
 
